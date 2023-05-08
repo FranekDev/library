@@ -38,8 +38,12 @@ main {
 }
 
 .content {
-    width: 50%;
+    width: auto;
     height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
 }
 
 .book {
@@ -59,15 +63,17 @@ main {
 }
 
 .book > .read_status {
-    width: 100px;
-    height: 60%;
+    min-width: 100px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: var(--read);
     border-radius: 10px;
+    cursor: pointer;
     /* box-shadow: -5px 5px 0 black; */
 }
+
 
 .new_book {
     background-color: var(--bg-color);
@@ -81,6 +87,10 @@ main {
     border-radius: 15px;
     border: var(--border-size) solid black;
     gap: 5px;
+    position: absolute;
+    padding: 8px;
+    visibility: hidden;
+    /* display: none; */
 }
 
 .label {
@@ -93,6 +103,7 @@ main {
     border: 2px solid rgb(199, 199, 199);
     border-radius: 7px;
     width: 80%;
+    padding: 3px;
 }
 
 .new_book > input:focus {
@@ -119,7 +130,14 @@ main {
 }
 
 .not_read {
+    min-width: 100px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--not-read);
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 .add {
@@ -129,4 +147,8 @@ main {
     padding: 5px;
     border-radius: 7px;
     cursor: pointer;
+}
+
+.book_title {
+    width: auto;
 }
