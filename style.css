@@ -81,6 +81,10 @@ main {
     cursor: pointer;
 }
 
+.book_title, .book_author {
+    max-width: 200px;
+}
+
 
 .new_book {
     background-color: var(--bg-color);
