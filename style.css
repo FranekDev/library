@@ -62,16 +62,15 @@ main {
     margin-left: 10px;
 }
 
-.book > .read_status {
+.read {
     min-width: 100px;
     height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: var(--read);
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
-    /* box-shadow: -5px 5px 0 black; */
 }
 
 
@@ -79,7 +78,6 @@ main {
     background-color: var(--bg-color);
     width: 200px;
     height: 200px;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -89,8 +87,7 @@ main {
     gap: 5px;
     position: absolute;
     padding: 8px;
-    visibility: hidden;
-    /* display: none; */
+    display: none;
 }
 
 .label {
@@ -112,6 +109,13 @@ main {
 
 .status {
     cursor: pointer;
+    width: auto;
+    height: auto;
+}
+
+.read_status {
+    padding: 3px 6px;
+    user-select: none;
 }
 
 .read_btn {
@@ -120,13 +124,17 @@ main {
     width: 80%;
 }
 
-.read, .not_read {
+.mark_as_read , .mark_as_not_read  {
     padding: 5px;
     border-radius: 7px;
 }
 
-.read {
+.mark_as_read  {
     background-color: var(--read)
+}
+
+.mark_as_not_read {
+    background-color: var(--not-read);
 }
 
 .not_read {
@@ -136,7 +144,7 @@ main {
     justify-content: center;
     align-items: center;
     background-color: var(--not-read);
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
 }
 

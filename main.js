@@ -1,32 +1,16 @@
-const addBook = document.querySelector('.add_new_book');
-let readStatus = document.querySelector('.status');
-let notReadStatus = document.querySelector('.not_read_status');
-let status = document.querySelector('.status');
-let title = document.querySelector('.title').value;
-let author = document.querySelector('.author').value;
+let addBook = document.querySelector('.add_new_book');
 const addBookField = document.querySelector('.new_book');
-const book = document.querySelector('.book');
 let content = document.querySelector('.content');
 const add = document.querySelector('.add');
+const bookIsRead = document.querySelector('.mark_as_read');
+const bookIsNotRead = document.querySelector('.mark_as_not_read');
 
-let readButton = document.querySelector('.read_status');
-
-
-readButton.addEventListener('click', (book) => {
-    if(book.isRead == "not read yet") {
-        book.isRead = "read";
-        console.log(book.isRead);
-    }
-    else {
-        book.isRead = "not read yet";
-        console.log(book.isRead);
-    }
-});
+let isRead = false;
 
 let myLibrary = [];
 
-myLibrary.push(new Book("Hobbit", "J.R.R. Tolkien", "not read yet"));
-myLibrary.push(new Book("The Laws of Human Nature", "Robert Green", "not read yet"));
+myLibrary.push(new Book("Hobbit", "J.R.R. Tolkien", false));
+myLibrary.push(new Book("The Laws of Human Nature", "Robert Green", true));
 
 function Book(title, author, isRead) {
     this.title = title;
@@ -34,16 +18,20 @@ function Book(title, author, isRead) {
     this.isRead = isRead;
 }
 
+const isEmpty = (str) => !str.trim().length;
+
+bookIsRead.addEventListener('click', () => { isRead = true; });
+bookIsNotRead.addEventListener('click', () => { isRead = false; });
+
 function addBookTolibrary() {
+    
     let title = document.querySelector('.title').value;
     let author = document.querySelector('.author').value;
-    // let isRead = document.querySelector('.read_status').value;
-    let isRead = "";
-    readStatus.addEventListener('click', () => {
-        isRead = readStatus.value;
-    });
-    let book = new Book(title, author, isRead);
-    myLibrary.push(book);
+
+    if(!isEmpty(title) && !isEmpty(author)) {
+        let book = new Book(title, author, isRead);
+        myLibrary.push(book);
+    }
     console.log(myLibrary);
     displayBooks();
 }
@@ -52,6 +40,7 @@ function addBookTolibrary() {
 function displayBooks() {
     content.innerHTML = "";
     myLibrary.map(book => { 
+        console.log(book.isRead);
         let newBook = document.createElement('div');
         newBook.classList.add('book');
 
@@ -64,16 +53,18 @@ function displayBooks() {
         bookAuthor.textContent = book.author;
 
         let bookStatus = document.createElement('div');
+
         if(book.isRead == true) {
-            bookStatus.classList.add('read_status');
+            bookStatus.classList.add('read_status', 'read');
             bookStatus.textContent = "Mark as read";
-            bookStatus.value = "true";
+            bookStatus.setAttribute('value', 'true');
         }
         else {
-            bookStatus.classList.add('not_read');
+            bookStatus.classList.add('not_read', 'read_status');
             bookStatus.textContent = "Mark as not read";
-            bookStatus.value = "false";
+            bookStatus.setAttribute('value', 'false');
         }
+        changeBookStatus(bookStatus);
 
         content.appendChild(newBook);
         newBook.appendChild(bookTitle);
@@ -82,24 +73,56 @@ function displayBooks() {
     });
 }
 
+let changeBookStatus = (bookStatus) => {
+
+  bookStatus.addEventListener('click', () => {
+      if (bookStatus.getAttribute('value') == "true") {
+          bookStatus.classList.remove('read');
+          bookStatus.classList.add('not_read');
+          bookStatus.textContent = "Mark as not read";
+          bookStatus.setAttribute('value', 'false');
+      }
+      else if (bookStatus.getAttribute('value') == "false") {
+          bookStatus.classList.remove('not_read');
+          bookStatus.classList.add('read');
+          bookStatus.textContent = "Mark as read";
+          bookStatus.setAttribute('value', 'true');
+      }
+  });
+
+}
+
 addBook.addEventListener('click', () => {
     let setTitle = document.querySelector('.title');
     let setAuthor = document.querySelector('.author');
     setTitle.value = "";
     setAuthor.value = "";
-    if(addBookField.style.visibility == 'hidden') {
-        addBookField.style.visibility = 'visible';
+    let readStatus = document.querySelectorAll('.read_status');
+    
+    if(addBookField.style.display == 'flex') {
+        addBookField.style.display = 'none';
+        document.body.style.backgroundColor = 'rgb(255, 246, 235)';
+        readStatus.forEach((status) => {
+            status.style.opacity = '1';
+        });
     }
     else {
-        addBookField.style.visibility = 'hidden';
+        addBookField.style.display = 'flex';
+        document.body.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        readStatus.forEach((status) => {
+            status.style.opacity = '0.5';
+        });
     }
 });
 
 add.addEventListener('click', () => {
     addBookTolibrary();
-    addBookField.style.visibility = 'hidden';
-    title.textContent = "";
-    author.textContent = "";
+    addBookField.style.display = 'none';
+    let readStatus = document.querySelectorAll('.read_status');
+    document.body.style.backgroundColor = 'rgb(255, 246, 235)';
+    readStatus.forEach((status) => {
+        status.style.opacity = '1';
+    });
 });
 
-displayBooks();
+window.onload = displayBooks();
