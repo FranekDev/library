@@ -22,8 +22,16 @@ function Book(title, author, isRead, id) {
 
 const isEmpty = (str) => !str.trim().length;
 
-bookIsRead.addEventListener('click', () => { isRead = true; });
-bookIsNotRead.addEventListener('click', () => { isRead = false; });
+bookIsRead.addEventListener('click', () => { 
+    isRead = true; 
+    bookIsRead.style.backgroundColor = 'rgb(177, 255, 153, 0.3)';
+    bookIsNotRead.style.backgroundColor = 'rgb(255, 130, 130)';
+});
+bookIsNotRead.addEventListener('click', () => {
+    isRead = false; 
+    bookIsNotRead.style.backgroundColor = 'rgb(255, 130, 130, 0.3)';
+    bookIsRead.style.backgroundColor = 'rgb(177, 255, 153)';
+});
 
 function addBookTolibrary() {
     
@@ -113,6 +121,8 @@ addBook.addEventListener('click', () => {
     let setAuthor = document.querySelector('.author');
     setTitle.value = "";
     setAuthor.value = "";
+    bookIsRead.style.backgroundColor = 'rgb(177, 255, 153)';
+    bookIsNotRead.style.backgroundColor = 'rgb(255, 130, 130)';
     let readStatus = document.querySelectorAll('.read_status');
     
     if(addBookField.style.display == 'flex') {
