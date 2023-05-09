@@ -160,3 +160,9 @@ main {
 .book_title {
     width: auto;
 }
+
+@media screen and (min-width: 400px) {
+    .book {
+        width: 80%;
+    }
+}
