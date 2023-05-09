@@ -5,6 +5,7 @@
     --read: rgb(177, 255, 153);
     --not-read: rgb(255, 130, 130);
     --border-size: 5px;
+    --remove-btn: rgb(158, 158, 158);
 }
 
 body {
@@ -48,18 +49,24 @@ main {
 
 .book {
     width: 100%;
-    height: 50px;
+    height: auto;
     display: flex;
     border: var(--border-size) solid black;
     box-shadow: -10px 10px 0 rgb(0, 0, 0);
-    border-radius: 25px;
-    padding: 5px 10px;
+    border-radius: 23px;
+    padding: 7px 10px;
     align-items: center;
     justify-content: space-between;
 }
 
 .book > span {
     margin-left: 10px;
+}
+
+.edit_buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .read {
@@ -148,6 +155,19 @@ main {
     cursor: pointer;
 }
 
+.remove_book {
+    background-color: var(--remove-btn);
+    height: 30px;
+    width: auto;
+    padding: 3px 6px;
+    border-radius: 12px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .add {
     width: 80%;
     text-align: center;
@@ -166,7 +186,7 @@ main {
     .book {
         width: 75%;
     }
-    
+
     .not_read, .read {      
         height: 25px;
         font-size: 95%;

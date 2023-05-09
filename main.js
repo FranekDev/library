@@ -6,16 +6,18 @@ const bookIsRead = document.querySelector('.mark_as_read');
 const bookIsNotRead = document.querySelector('.mark_as_not_read');
 
 let isRead = false;
+let id = 0;
 
 let myLibrary = [];
 
-myLibrary.push(new Book("Hobbit", "J.R.R. Tolkien", false));
-myLibrary.push(new Book("The Laws of Human Nature", "Robert Green", true));
+myLibrary.push(new Book("Hobbit", "J.R.R. Tolkien", false, id++));
+myLibrary.push(new Book("The Laws of Human Nature", "Robert Green", true, id++));
 
-function Book(title, author, isRead) {
+function Book(title, author, isRead, id) {
     this.title = title;
     this.author = author;
     this.isRead = isRead;
+    this.id = id;
 }
 
 const isEmpty = (str) => !str.trim().length;
@@ -29,7 +31,7 @@ function addBookTolibrary() {
     let author = document.querySelector('.author').value;
 
     if(!isEmpty(title) && !isEmpty(author)) {
-        let book = new Book(title, author, isRead);
+        let book = new Book(title, author, isRead, id++);
         myLibrary.push(book);
     }
     console.log(myLibrary);
@@ -66,10 +68,24 @@ function displayBooks() {
         }
         changeBookStatus(bookStatus);
 
+        let removeBook = document.createElement('div');
+        removeBook.classList.add('remove_book');
+        removeBook.textContent = "Remove";
+
+        removeBook.addEventListener('click', () => {
+            delete myLibrary[book.id];
+            displayBooks();
+        });
+
+        let editButtons = document.createElement('div');
+        editButtons.classList.add('edit_buttons');
+        editButtons.appendChild(bookStatus);
+        editButtons.appendChild(removeBook);
+
         content.appendChild(newBook);
         newBook.appendChild(bookTitle);
         newBook.appendChild(bookAuthor);
-        newBook.appendChild(bookStatus);
+        newBook.appendChild(editButtons);
     });
 }
 
