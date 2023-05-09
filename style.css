@@ -161,8 +161,23 @@ main {
     width: auto;
 }
 
-@media screen and (min-width: 400px) {
+@media only screen and (max-width: 600px) {
+    
     .book {
-        width: 80%;
+        width: 75%;
     }
+    
+    .not_read, .read {      
+        height: 25px;
+        font-size: 95%;
+    }
+
+    .not_read {
+        min-width: 120px;
+    }
+
+     .read {
+        min-width: 100px;
+    }
+
 }
